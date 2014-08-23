@@ -5,11 +5,13 @@
   <input type="hidden" name="_csrf" value={{_csrf}}>
 
   <div class="form-group">
-    <input type="text" name="name" id="name_id" class="form-control input-lg" placeholder="Name" autofocus="true">
+    <input type="text" name="name" id="name_id" class="form-control input-lg" placeholder="Name" autofocus="true"
+    {{#if user}} value="{{user.profile.name}}" {{/if}}>
   </div>
 
   <div class="form-group">
-    <input type="email" name="email" id="email_id" class="form-control input-lg" placeholder="Email address">
+    <input type="email" name="email" id="email_id" class="form-control input-lg" placeholder="Email address"
+    {{#if user}} value="{{user.email}}" {{/if}}>
   </div>
 
   <div class="form-group">
