@@ -7,6 +7,11 @@
 @brand-danger: #de4b33;
 @brand-info: #5bc0dd;
 
+// Typography
+// -------------------------
+
+@headings-font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+
 // Buttons
 // -------------------------
 
@@ -73,14 +78,25 @@
 // Navbar
 // -------------------------
 
-.navbar-default .navbar-nav > li a {
-  transition: color 0.3s;
-}
+@navbar-default-bg: rgba(255, 255, 255, 0.9);
+@navbar-default-link-color: #252525;
+@navbar-default-link-hover-color: #4da5f4;
+@navbar-default-link-active-color: #4da5f4;
+@navbar-default-link-hover-bg: transparent;
+@navbar-default-link-active-bg: transparent;
+@navbar-default-color: #fafafa;
+@navbar-default-brand-hover-color: #4da5f4;
 
-// Footer
-// -------------------------
+.navbar-default {
+  border: 0;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
-#footer {
-  background-color: #f8f8f8;
-  border-top: 1px solid #e7e7e7;
+  .navbar-nav {
+    > li > a {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: all 0.2s linear;
+    }
+  }
 }

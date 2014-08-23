@@ -1,6 +1,6 @@
 var secrets = require('../config/secrets');
 var nodemailer = require("nodemailer");
-var smtpTransport = nodemailer.createTransport('SMTP', {
+var transporter = nodemailer.createTransport({
   service: 'Mandrill',
   auth: {
        user: secrets.mandrill.login,
@@ -52,7 +52,7 @@ exports.postContact = function(req, res) {
     text: body
   };
 
-  smtpTransport.sendMail(mailOptions, function(err) {
+  transporter.sendMail(mailOptions, function(err) {
     if (err) {
       req.flash('errors', { msg: err.message });
       return res.redirect('/contact');
