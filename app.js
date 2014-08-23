@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-var _ = require('underscore');
+var _ = require('lodash');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var compress = require('compression');
@@ -63,7 +63,7 @@ var hour = 3600000;
 var day = hour * 24;
 var week = day * 7;
 
-var csrfWhitelist = [
+var csrfExclude = [
   '/this-url-will-bypass-csrf'
 ];
 
@@ -78,18 +78,20 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
+app.use(compress());
 app.use(connectAssets({
-  paths: ['public/css', 'public/js'],
+  paths: [path.join(__dirname, 'public/css'), path.join(__dirname, 'public/js')],
   helperContext: app.locals
 }));
-app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
 app.use(session({
+  resave: true,
+  saveUninitialized: true,
   secret: secrets.sessionSecret,
   store: new MongoStore({
     url: secrets.db,
@@ -98,26 +100,27 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 app.use(function(req, res, next) {
-  // Conditional CSRF.
-  if (_.contains(csrfWhitelist, req.path)) return next();
+  // CSRF protection.
+  if (_.contains(csrfExclude, req.path)) return next();
   csrf(req, res, next);
 });
 app.use(function(req, res, next) {
+  // Make user object available in templates.
   res.locals.user = req.user;
   next();
 });
-app.use(flash());
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 app.use(function(req, res, next) {
-  // Keep track of previous URL to redirect back to
-  // original destination after a successful login.
-  if (req.method !== 'GET') return next();
+  // Remember original destination before login.
   var path = req.path.split('/')[1];
-  if (/(auth|login|logout|signup)$/i.test(path)) return next();
+  if (/auth|login|logout|signup|fonts|favicon/i.test(path)) {
+    return next();
+  }
   req.session.returnTo = req.path;
   next();
 });
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 
 /**
  * Application routes.
