@@ -114,7 +114,7 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
   // Remember original destination before login.
   var path = req.path.split('/')[1];
-  if (/auth|login|logout|signup|fonts|favicon/i.test(path)) {
+  if (/auth|login|logout|signup|img|fonts|favicon/i.test(path)) {
     return next();
   }
   req.session.returnTo = req.path;
