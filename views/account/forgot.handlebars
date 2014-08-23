@@ -14,17 +14,3 @@
   </div> <!-- / .form-actions -->
 </form>
 <!-- / Form -->
-
-<script type="text/javascript">
-  window.PixelAdmin.start([
-    function () {
-      $("#forgot-form_id").validate({ focusInvalid: true, errorPlacement: function () {} });
-
-      // Validate email
-      $("#email_id").rules("add", {
-        required: true,
-        email: true
-      });
-    }
-  ]);
-</script>

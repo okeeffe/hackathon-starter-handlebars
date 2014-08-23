@@ -35,35 +35,3 @@
   <a href="/auth/twitter" class="btn btn-lg btn-info rounded"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp;
   <a href="/auth/google" class="btn btn-lg btn-danger rounded"><i class="fa fa-google-plus"></i></a>
 </div>
-
-<script type="text/javascript">
-window.PixelAdmin.start([
-  function () {
-    $("#signup-form_id").validate({ focusInvalid: true, errorPlacement: function () {} });
-
-    // Validate email
-    $("#email_id").rules("add", {
-      required: true,
-      email: true
-    });
-
-    // Validate password
-    $("#password_id").rules("add", {
-      required: true,
-      minlength: 6
-    });
-
-    // Validate password confirm
-    $("#password_confirm_id").rules("add", {
-      required: true,
-      minlength: 6,
-      equalTo: '#password_id'
-    });
-
-    // Validate confirm checkbox
-    $("#confirm_id").rules("add", {
-      required: true
-    });
-  }
-]);
-</script>
