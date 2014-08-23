@@ -1,0 +1,40 @@
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">Insurify</a>
+    </div>
+
+    <ul class="nav navbar-nav">
+      <li {{#eq title 'Home'}} class="active" {{/eq}}><a href="/">Home</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      {{#if user}}
+      <li class="dropdown {{#eq title 'Account Management'}} active {{/eq}}">
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+          {{#if user.profile.picture}}
+          <img src="{{user.profile.picture}}" alt="" class="profile-image">
+          {{else}}
+          <img src="{{user.gravatar}}" alt="" class="profile-image">{{#if user.profile.name}} {{user.profile.name}} {{else}} {{user.email}} {{/if}}
+          {{/if}}
+          <i class="caret"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="/account">My Account</a></li>
+          <li class="divider"></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </li>
+      {{else}}
+      <li {{#eq title 'Login'}} class="active" {{/eq}}><a href="/login">Login</a></li>
+      <li {{#eq title 'Create Account'}} class="active" {{/eq}}><a href="/signup">Create Account</a></li>
+      {{/if}}
+    </ul>
+  </div>
+</div>

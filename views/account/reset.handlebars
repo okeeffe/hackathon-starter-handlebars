@@ -1,0 +1,40 @@
+<h1 class="form-header">Reset Password</h1>
+
+<!-- Form -->
+<form action="/reset/{{token}}" id="reset-form_id" class="panel" method="POST">
+  <input type="hidden" name="_csrf" value={{_csrf}}>
+
+  <div class="form-group">
+    <input type="password" name="password" id="password_id" class="form-control input-lg" placeholder="Password" autofocus="true">
+  </div>
+
+  <div class="form-group">
+    <input type="password" name="confirm" id="password_confirm_id" class="form-control input-lg" placeholder="Confirm Password">
+  </div>
+
+  <div class="form-actions">
+    <input type="submit" value="Reset Password" class="btn btn-primary btn-block btn-lg">
+  </div> <!-- / .form-actions -->
+</form>
+<!-- / Form -->
+
+<script type="text/javascript">
+  window.PixelAdmin.start([
+    function () {
+      $("#reset-form_id").validate({ focusInvalid: true, errorPlacement: function () {} });
+
+      // Validate password
+      $("#password_id").rules("add", {
+        required: true,
+        minlength: 6
+      });
+
+      // Validate password
+      $("#password_confirm_id").rules("add", {
+        required: true,
+        minlength: 6,
+        equalTo: '#password_id'
+      });
+    }
+  ]);
+</script>
