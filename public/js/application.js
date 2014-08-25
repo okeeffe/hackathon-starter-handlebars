@@ -13,7 +13,6 @@
  * scripts down below using //= filename.js notation.
  */
 
-//= require lib/jquery-2.1.1.min
 //= require lib/bootstrap.min
 //= require themes/sb-admin-2/sb-admin-2
 //= require themes/sb-admin-2/plugins/morris/raphael.min
