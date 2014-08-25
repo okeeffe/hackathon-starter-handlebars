@@ -12,7 +12,7 @@ var secrets = require('../config/secrets');
  */
 
 exports.getLogin = function(req, res) {
-  if (req.user) return res.redirect('/');
+  if (req.user) return res.redirect('/dash');
   res.render('account/login', {
     title: 'Login'
   });
@@ -45,7 +45,7 @@ exports.postLogin = function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) return next(err);
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
+      res.redirect(req.session.returnTo || '/dash');
     });
   })(req, res, next);
 };
@@ -66,7 +66,7 @@ exports.logout = function(req, res) {
  */
 
 exports.getSignup = function(req, res) {
-  if (req.user) return res.redirect('/');
+  if (req.user) return res.redirect('/dash');
   res.render('account/signup', {
     title: 'Create Account'
   });

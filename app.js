@@ -20,7 +20,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
-var exphbs  = require('express3-handlebars');
+var exphbs  = require('express-handlebars');
 
 var diyHbsHelpers = require('diy-handlebars-helpers');
 var hbsHelpers = require('./utils/hbsHelpers');
@@ -32,6 +32,7 @@ var hbsHelpers = require('./utils/hbsHelpers');
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
+var dashController = require('./controllers/dash');
 
 /**
  * API keys + Passport configuration.
@@ -114,7 +115,7 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
   // Remember original destination before login.
   var path = req.path.split('/')[1];
-  if (/auth|login|logout|signup|img|fonts|favicon/i.test(path)) {
+  if (/auth||assets|login|logout|signup|img|fonts|favicon/i.test(path)) {
     return next();
   }
   req.session.returnTo = req.path;
@@ -143,6 +144,7 @@ app.post('/account/profile', passportConf.isAuthenticated, userController.postUp
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+app.get('/dash', passportConf.isAuthenticated, dashController.index);
 
 /**
  * OAuth routes for sign-in.
