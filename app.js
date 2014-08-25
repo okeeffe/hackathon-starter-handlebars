@@ -20,7 +20,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
-var exphbs  = require('express3-handlebars');
+var exphbs  = require('express-handlebars');
 
 var diyHbsHelpers = require('diy-handlebars-helpers');
 var hbsHelpers = require('./utils/hbsHelpers');
